@@ -35,7 +35,7 @@ export function getOperation(
         summary: op.summary || null,
         description: op.description || null,
         deprecated: op.deprecated === true,
-        method: method.toUpperCase(),
+        method: method.toLowerCase(),
         path: operationPath,
         parameters: [...pathParams.parameters],
         parametersPath: [...pathParams.parametersPath],

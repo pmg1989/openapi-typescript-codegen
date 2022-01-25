@@ -1,5 +1,6 @@
 {{#if parameters}}
 {{#if @root.useOptions~}}
+{{#equals parent.method 'get'}}
 {
 {{#each parameters}}
 {{{name}}}{{#if default}} = {{{default}}}{{/if}},
@@ -7,11 +8,16 @@
 }: {
 {{#each parameters}}
 {{#if description}}
-/** {{{escapeComment description}}} **/
+/** {{{escapeComment description}}} */
 {{/if}}
 {{{name}}}{{>isRequired}}: {{>type}},
 {{/each}}
 }
+{{else}}
+{{#each parameters}}
+{{{name}}}: {{>type}}{{#if default}} = {{{default}}}{{/if}},
+{{/each}}
+{{/equals}}
 {{~else}}
 
 {{#each parameters}}

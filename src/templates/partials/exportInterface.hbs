@@ -1,18 +1,20 @@
+import { ApiPropertyOptional } from '@nestjs/swagger'
 {{#if description}}
-/**
- * {{{escapeComment description}}}
- */
+/** {{{escapeComment description}}} */
 {{/if}}
-export type {{{name}}} = {
-    {{#each properties}}
-    {{#if description}}
-    /**
-     * {{{escapeComment description}}}
-     */
-    {{/if}}
-    {{>isReadOnly}}{{{name}}}{{>isRequired}}: {{>type parent=../name}};
-    {{/each}}
-};
+export class {{{name}}} {
+  {{#each properties}}
+  {{#if description}}
+  /** {{{escapeComment description}}} */
+  {{#if isRequired}}
+  @ApiProperty({ description: '{{{escapeComment description}}}' })
+  {{else}}
+  @ApiPropertyOptional({ description: '{{{escapeComment description}}}' })
+  {{/if}}
+  {{/if}}
+  {{>isReadOnly}}{{{name}}}{{>isRequired}}: {{>type parent=../name}}
+  {{/each}}
+}
 {{#if enums}}
 {{#unless @root.useUnionTypes}}
 
